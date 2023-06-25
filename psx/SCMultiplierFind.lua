@@ -1,9 +1,3 @@
-local WebhookUrl    = ""
-local SendWebhook   = true
-local StopWhenFound = false
-local TeleportToEgg = false
-local TargetMulti   = "50x" -- 1x, 2, 5x, 10x, 20x, 50x
-
 repeat wait() until game:IsLoaded()
 local Library = require(game.ReplicatedStorage:WaitForChild("Framework"):WaitForChild("Library"))
 while not Library.Loaded do
@@ -128,10 +122,21 @@ bypassSuccess, bypassError = pcall(function()
 
 end)
 
+local SHU = loadstring(game:HttpGet("https://raw.githubusercontent.com/Loonycgb2/scrpt-rb/main/psx/ServerHop.lua"))()
+
 if not bypassSuccess then
     print(bypassError)
     LocalPlayer:Kick("Error while bypassing network, try again or wait for an update!")
     return
+end
+
+if workspace.__MAP.Areas:FindFirstChild("SandcastleEventCannon") then
+    if workspace.__MAP.Areas:FindFirstChild("SandcastleEventCannon"):FindFirstChild("Holographic Cannon") then
+        if not workspace.__MAP.Cannons:FindFirstChild("Sandcastle Event") then
+            SHU.Jump(({"Normal","Low"})[math.random(1,2)])
+            wait(1000)
+        end
+    end
 end
 
 
@@ -143,7 +148,7 @@ end
 
 local x50 = false
 local x50Egg = nil
-local SHU = loadstring(game:HttpGet("https://raw.githubusercontent.com/Loonycgb2/scrpt-rb/main/psx/ServerHop.lua"))()
+																													 
 for i,v in pairs(workspace.__MAP.Eggs:GetChildren()) do
 	print(v.Sign.Main.SurfaceGui.Title.Text)
 	if v.Sign.Main.SurfaceGui.Title.Text:find(TargetMulti) then
@@ -159,7 +164,10 @@ else
         {
             ["color"] = 16230400,
             ["title"] = ("Found %s egg!"):format(TargetMulti),
-            ["description"] = ("Join script: ```lua\ngame:GetService('TeleportService'):TeleportToPlaceInstance(6284583030, '%s', game.Players.LocalPlayer)```\n\nJoin through browser: ```js\nRoblox.GameLauncher.joinGameInstance(6284583030, '%s')```"):format(game.JobId, game.JobId),
+            ["author"] = {
+                ["name"] = ("Server size: %s/%s"):format(#game.Players:GetChildren()-1, game.Players.MaxPlayers)
+            },
+            ["description"] = ("Join script: ```lua\ngame:GetService('TeleportService'):TeleportToPlaceInstance(%s, '%s', game.Players.LocalPlayer)```\n\nJoin through browser: ```js\nRoblox.GameLauncher.joinGameInstance(%s, '%s')```"):format(game.PlaceId, game.JobId, game.PlaceId, game.JobId),
             ["footer"] = {
                 ["text"] = "Loonycgb2 Sandcastle Egg Finder",
             },
