@@ -397,6 +397,14 @@ TeleportTab:Button{
 	end
 }
 
+TeleportTab:Button{
+	Name = "Dungeon",
+	Description = "Will bypass dungeon cooldown",
+	Callback = function()
+		Game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-100001.172, 34.592411, -515.433105)
+	end
+}
+
 --Gifts Tab Contents
 
 GiftsTab:Button{
